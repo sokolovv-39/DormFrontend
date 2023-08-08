@@ -10,6 +10,7 @@ import axios from "axios";
 import { requestErrorHandler } from "../../utils/requestErrorsHandler";
 import { addNewStudent } from "../../redux/adminSlice";
 import { ReactComponent as WhiteSpinner } from '../../assets/white_spinner.svg'
+import { axiosRequest } from "../../configs/axiosConfig";
 
 export default function PageWrapper({ children }: { children: ReactNode }) {
     const navigate = useNavigate()
@@ -61,7 +62,7 @@ export default function PageWrapper({ children }: { children: ReactNode }) {
             recordDatetime: `2023-08-${parseInt(dateSelected)}T${newEnrollTime![0] === '9' ? `${'0' + newEnrollTime}` : newEnrollTime}:00`
         }
         console.log('CREATE USER DATA', data)
-        axios.post('http://localhost:4200/admin/create-user', data, {
+        axiosRequest.post('/admin/create-user', data, {
             headers: {
                 'Authorization': `Bearer ${adminToken}`
             }

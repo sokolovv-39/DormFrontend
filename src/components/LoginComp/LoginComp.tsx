@@ -8,6 +8,7 @@ import { saveUserBasics, saveUserData, showEmployeeLogin, switchStep } from '../
 import axios from 'axios';
 import { ReactComponent as Spinner } from '../../assets/white_spinner.svg'
 import { requestErrorHandler } from '../../utils/requestErrorsHandler';
+import { axiosRequest } from '../../configs/axiosConfig';
 
 export default function LoginComp() {
     const navigate = useNavigate()
@@ -34,7 +35,7 @@ export default function LoginComp() {
         else {
             let email = (new FormData(e.currentTarget)).get('email') as string
             if (!/@/.test(email)) email += '@edu.misis.ru'
-            axios.post('http://localhost:4200/auth/send-code', {
+            axiosRequest.post('/auth/send-code', {
                 email
             }).then(() => {
                 setIsLoading(false)
@@ -57,7 +58,7 @@ export default function LoginComp() {
         e.preventDefault()
         if (!isActiveCode || isLoading) return
         else {
-            axios.post('http://95.163.235.163:4200/auth/login-user', {
+            axiosRequest.post('/auth/login-user', {
                 email: userEmail.current,
                 code: (new FormData(e.currentTarget)).get('code')
             })
@@ -66,7 +67,7 @@ export default function LoginComp() {
                         email: userEmail,
                         token: res.data.access_token
                     }))
-                    axios.post('http://95.163.235.163:4200/start-recording', {
+                    axiosRequest.post('/start-recording', {
                         email: userEmail.current
                     }, {
                         headers: {

@@ -11,6 +11,7 @@ import axios from 'axios';
 import { setAdminData } from '../../redux/adminSlice';
 import { requestErrorHandler } from '../../utils/requestErrorsHandler';
 import { ReactComponent as WhiteSpinner } from '../../assets/white_spinner.svg'
+import { axiosRequest } from '../../configs/axiosConfig';
 
 function App() {
   const isEmployeeLogin = useAppSelector(state => state.globalSlice.serviceData.isEmployeeLogin)
@@ -28,13 +29,13 @@ function App() {
     if (!isEmpEmailActive || !isPwdActive) return
     else {
       const formData = new FormData(e.currentTarget)
-      axios.post('http://localhost:4200/auth/login-admin', {
+      axiosRequest.post('/auth/login-admin', {
         email: formData.get('employee_login'),
         password: formData.get('employee_password')
       }).then(({ data: tokenData }) => {
         console.log('login-admin succeded', tokenData)
         console.log('token', tokenData.access_token)
-        axios.get(`http://localhost:4200/admin/get-users?login=${formData.get('employee_login')}`, {
+        axiosRequest.get(`/admin/get-users?login=${formData.get('employee_login')}`, {
           headers: {
             'Authorization': `Bearer ${tokenData.access_token}`
           }

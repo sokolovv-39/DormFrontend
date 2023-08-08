@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { ReactComponent as Spinner } from '../../assets/white_spinner.svg'
 import { ReactComponent as BlueSpinner } from '../../assets/blue_spinner.svg'
 import { requestErrorHandler } from '../../utils/requestErrorsHandler'
+import { axiosRequest } from '../../configs/axiosConfig'
 
 export default function ControlPanelComp() {
     const [dateTime, date, time] = useCPDateTime()
@@ -22,7 +23,7 @@ export default function ControlPanelComp() {
     const timeSummary = <p>{dateTime ? dateTime : 'Выберите время'}</p>
     const backButton = <button className={`DefaultButton_2 ${classes.BackButton}`} onClick={() => {
         setIsLoadingBack(true)
-        axios.put('http://localhost:4200/free-time', {
+        axiosRequest.put('/free-time', {
             email
         }, {
             headers: {
@@ -45,7 +46,7 @@ export default function ControlPanelComp() {
         setIsLoadingNekst(true)
         if (isEnrollmentPage) {
             const recordDatetime = `2023-08-${date}T${time}:00`
-            axios.post('http://localhost:4200/take-time', {
+            axiosRequest.post('/take-time', {
                 email,
                 recordDatetime
             }, {
@@ -63,7 +64,7 @@ export default function ControlPanelComp() {
             })
         }
         else {
-            axios.post('http://localhost:4200/confirm-mail', {
+            axiosRequest.post('/confirm-mail', {
                 email
             }, {
                 headers: {
