@@ -1,0 +1,7 @@
+.Wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 1%;
+    justify-items: center;
+    align-items: flex-start
+}

@@ -1,0 +1,29 @@
+@mixin fontNekst($fontSize: 3rem, $fontWeight: 400, $color: #2C3E50,
+    $fontStretch: normal, $fontStyle: normal, $fontVariant: normal) {
+    font-family: 'Nekst';
+    font-size: $fontSize;
+    font-stretch: $fontStretch;
+    font-style: $fontStyle;
+    font-variant: $fontVariant;
+    font-weight: $fontWeight;
+    color: $color;
+}
+
+@mixin fontRaleway($fontSize: 1rem, $fontWeight: 400, $fontColor: #2C3E50,
+    $fontStretch: normal, $fontStyle: normal, $fontVariant: normal) {
+    font-family: 'Raleway';
+    font-size: $fontSize;
+    font-stretch: $fontStretch;
+    font-style: $fontStyle;
+    font-variant: $fontVariant;
+    font-weight: $fontWeight;
+    color: $fontColor;
+}
+
+@mixin buttonStandard() {
+    border: none;
+    height: 48px;
+    width: 360px;
+    border-radius: 8px;
+    margin: 16px;
+}

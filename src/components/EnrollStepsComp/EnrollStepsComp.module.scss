@@ -1,0 +1,47 @@
+@use '../../styles/mixins' as mixins;
+
+.Wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1%;
+    @include mixins.fontRaleway();
+
+    .Step {
+        column-gap: 3%;
+        display: flex;
+        align-items: center;
+
+        h6 {
+            margin: 0;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+    }
+
+    .Step2 {
+        padding-right: 11%;
+        position: relative;
+    }
+
+    .Step2::after {
+        content: "";
+        position: absolute;
+        height: 1px;
+        width: calc(100% - 148px);
+        background-color: #2C3E501F;
+        right: 0;
+    }
+
+    .Line1,
+    .Line2 {
+        height: 1px;
+        background-color: #2C3E501F;
+        flex: 1;
+        margin: 0 7px;
+    }
+
+    .Line2 {
+        margin-left: 0;
+    }
+}

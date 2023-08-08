@@ -1,0 +1,196 @@
+@use '../../styles/mixins';
+
+@mixin wrapperStandard() {
+    width: 100%;
+    min-height: 100vh;
+    padding: 1% 1% 0 1%;
+    display: flex;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+
+    main {
+        flex: 1;
+    }
+
+    .NewEnroll {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-height: 569px;
+        overflow-y: scroll;
+        background-color: white;
+        z-index: 2;
+        padding: 40px;
+        border-radius: 16px;
+
+        .TimesContainer {
+            display: grid;
+            grid-template-columns: repeat(7, 72px);
+            grid-auto-rows: min-content;
+            justify-items: center;
+            gap: 8px;
+
+            .TimeBlock {
+                color: #1D92F8;
+                border: 1px solid #1D92F8;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 48px;
+                cursor: pointer;
+            }
+
+            .SelectedTime {
+                background-color: #1D92F8;
+                color: white;
+                font-weight: 600;
+            }
+
+            label {
+                grid-column: 1/8;
+                margin-bottom: 4px;
+                justify-self: flex-start;
+                display: flex;
+                align-items: flex-end;
+            }
+        }
+
+        .InfoBlocks {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            p {
+                margin-top: 8px;
+                color: #E95332;
+            }
+
+            .FullWidthInput {
+                width: 260px;
+            }
+
+            .InfoInput {
+                width: 260px;
+                height: 48px;
+            }
+
+            .RadioButtons {
+                display: flex;
+                align-items: center;
+                flex: 1;
+
+                label {
+                    margin: 0;
+                    margin-right: 24px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                input {
+                    margin-right: 8px;
+                }
+            }
+        }
+
+        .FullnameText {
+            width: 100%;
+            margin-bottom: 16px;
+
+            input {
+                width: 100%;
+                height: 48px;
+            }
+        }
+
+        .StudInfo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            column-gap: 40px;
+            row-gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        label,
+        input,
+        select {
+            @include mixins.fontRaleway()
+        }
+
+        input,
+        select {
+            border: 1px solid #2C3E501F;
+            border-radius: 8px;
+            padding: 0 16px;
+            height: 48px;
+        }
+
+        label {
+            margin-bottom: 12px;
+        }
+
+        .Cross {
+            position: absolute;
+            right: 16px;
+            top: 16px;
+            cursor: pointer;
+        }
+
+        h3 {
+            @include mixins.fontNekst($fontSize: 1.5rem);
+            margin-bottom: 32px;
+        }
+
+        button {
+            width: 222px;
+            margin: 0;
+            margin-top: 32px;
+        }
+    }
+}
+
+.Wrapper,
+.WrapperOverlay {
+    @include wrapperStandard()
+}
+
+.WrapperOverlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(44, 62, 80, 0.5);
+    z-index: 1;
+}
+
+.INMIN {
+    background-image: url('./assets/INMIN.webp');
+}
+
+.EKOKEK {
+    background-image: url('./assets/EKOKEK.webp');
+}
+
+.EUPP {
+    background-image: url('./assets/EUPP.webp');
+}
+
+.IBO {
+    background-image: url('./assets/IBO.webp')
+}
+
+.ITKN {
+    background-image: url('./assets/ITKN.webp');
+}
+
+.GORNIY {
+    background-image: url('./assets/GORNY.webp');
+}

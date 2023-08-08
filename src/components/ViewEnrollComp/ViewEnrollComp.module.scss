@@ -1,0 +1,21 @@
+@use '../../styles/mixins' as mixins;
+
+.Wrapper {
+    margin-top: 32px;
+
+    .GridContainer {
+        display: grid;
+        grid-template-columns: 212fr 70fr 141fr 168fr 85fr 139fr;
+        justify-items: flex-start;
+        border-top: 1px solid #2C3E501F;
+        @include mixins.fontRaleway();
+        height: 48px;
+        align-items: center;
+        padding-left: 16px;
+    }
+
+    .TableHeader {
+        font-weight: 600;
+        color: #2C3E508F
+    }
+}

@@ -1,0 +1,56 @@
+@use '../../styles/mixins' as mixins;
+
+.Wrapper {
+    width: 100%;
+
+    h1 {
+        @include mixins.fontNekst();
+
+        span {
+            color: #1D92F8;
+        }
+    }
+
+    .Info {
+        display: flex;
+        gap: 3%;
+
+        .LeftBlock {
+            width: 55%;
+
+            h3 {
+                @include mixins.fontNekst($fontSize: 1.5rem, $fontWeight: 400)
+            }
+
+            ul,
+            p {
+                @include mixins.fontRaleway()
+            }
+
+            a {
+                font-weight: 700;
+                color: #1D92F8;
+                letter-spacing: 0.613px;
+            }
+
+            span {
+                font-weight: 600;
+            }
+        }
+
+        .RightBlock {
+            @include mixins.fontRaleway();
+            width: 460px;
+            height: 368px;
+            border-radius: 16px;
+            background-color: #2C3E500A;
+            padding: 32px;
+
+            strong {
+                display: block;
+                padding-bottom: 16px;
+                font-weight: 600;
+            }
+        }
+    }
+}

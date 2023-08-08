@@ -1,0 +1,23 @@
+@use '../../styles/mixins' as mixins;
+
+.Wrapper {
+    @include mixins.fontRaleway();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: flex-end;
+    gap: 6px;
+
+    img {
+        width: 56px;
+    }
+
+    .EmailExit {
+        a {
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.613px;
+            cursor: pointer;
+        }
+    }
+}

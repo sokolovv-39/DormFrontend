@@ -1,0 +1,69 @@
+@use '../../styles/mixins' as mixins;
+
+.GridContainer {
+    display: grid;
+    gap: 5%;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+
+    .EnrollBlock {
+        .Title {
+            @include mixins.fontNekst($fontSize: 3rem);
+        }
+
+        .TimesBlock {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(72px, 100px));
+            grid-template-rows: repeat(7, 48px);
+            margin-top: 24px;
+            gap: 16px;
+
+            @mixin timeMixin() {
+                width: 72px;
+                height: 48px;
+                border-radius: 8px;
+                text-align: center;
+                @include mixins.fontRaleway();
+                line-height: 48px;
+                cursor: pointer;
+            }
+
+            .BusyTime {
+                @include timeMixin();
+                border: 1px solid #2C3E501F;
+                color: #2C3E508F
+            }
+
+            .SelectedTime {
+                @include timeMixin();
+                color: white;
+                background-color: #1D92F8;
+                font-weight: 600;
+            }
+
+            .FreeTime {
+                @include timeMixin();
+                color: #1D92F8;
+                font-weight: 600;
+                background-color: white;
+                border: 1px solid #1D92F8;
+            }
+        }
+    }
+
+    .Warning {
+        position: fixed;
+        top: 39%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        padding: 39px 18px;
+
+        h3 {
+            @include mixins.fontNekst($fontSize: 2.1875rem);
+            text-align: center;
+            margin: 0;
+        }
+    }
+}
