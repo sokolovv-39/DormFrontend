@@ -1,39 +1,14 @@
-@use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
 
-.Header {
-    display: flex;
-    align-items: center;
-    justify-self: flex-start;
-
-    @media (max-width: 912px) {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .Logo {
-        margin-right: 40px;
-        width: 59%;
-        cursor: pointer;
-
-        @media (max-width: 912px) {
-            margin: 0;
-            width: 118.53px;
+.Header{
+    align-self: flex-start;
+    width: 100%;
+    img {
+        width: 160.94px;
+        height: 64px;
+        @media (max-device-width: vars.$transition) {
+            width: 120.7px;
             height: 48px;
         }
     }
-
-    a {
-        @include mixins.fontRaleway($fontSize: 0.875rem, $fontColor: rgba(44, 62, 80, 0.56));
-
-        @media (max-width: 912px) {
-            font-size: 0.875rem;
-        }
-
-        text-decoration: none;
-    }
-
-    a:first-of-type {
-        margin-right: 16px
-    }
-
 }

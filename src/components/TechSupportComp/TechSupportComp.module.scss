@@ -5,13 +5,9 @@
     justify-self: center;
     padding-top: 1%;
 
-    @media (max-width:1038px) and (min-width: 767px) {
-        align-self: flex-start;
-    }
-
     p {
         color: rgba(44, 62, 80, 0.56);
-        margin-bottom: 1%;
+        margin-bottom: 4px;
     }
 
     a {

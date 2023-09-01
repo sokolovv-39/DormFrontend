@@ -1,0 +1,39 @@
+.Wrapper {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.WrapperOverlay::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    height: 100%;
+    min-width: 950px;
+    width: 100vw;
+    background-color: rgba(44, 62, 80, 0.5);
+    z-index: 1;
+}
+.INMIN {
+    background-image: url('./assets/INMIN.webp');
+}
+
+.EKOKEK {
+    background-image: url('./assets/EKOKEK.webp');
+}
+
+.EUPP {
+    background-image: url('./assets/EUPP.webp');
+}
+
+.IBO {
+    background-image: url('./assets/IBO.webp')
+}
+
+.ITKN {
+    background-image: url('./assets/ITKN.webp');
+}
+
+.GORNIY {
+    background-image: url('./assets/GORNY.webp');
+}

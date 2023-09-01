@@ -1,6 +1,8 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice, current } from "@reduxjs/toolkit";
 import { createTimes } from "../utils/timesCreation";
 import { usersDataType } from "./adminSlice";
+import { getTimeDate } from "../utils/getTimeDate";
+import { SingleStudentType } from "./adminSlice";
 
 type InitialStateType = {
     userData: {
@@ -13,14 +15,18 @@ type InitialStateType = {
         dateSelected: string,
         timeSelected: string | null,
         token: string | null,
-        contacts: Array<string>
+        contacts: Array<{
+            fullname: string,
+            position: string,
+            phone: string | null
+        }>
         freeTimes: {
             [key: string]: Array<{
                 time: string,
                 isBusy: boolean
             }>
         },
-        faculty: string
+        faculty?: string
     },
     serviceData: {
         isLoading: boolean,
@@ -30,7 +36,17 @@ type InitialStateType = {
         isEmployeeLogin: boolean,
         isCheckInPopup: boolean,
         isBusyWarning: boolean,
-        isAddEnroll: boolean
+        isShowNotify: {
+            isShow: boolean,
+            type: 'CreateEnroll' | 'UpdateEnroll' | 'DeleteEnroll' | 'DeleteEnrollCompleted' |'TimeBusy'|'None'
+        }
+        isShowAddEnroll: {
+            isShow: boolean,
+            mode: 'create' | 'edit' | 'none',
+            editData?: SingleStudentType
+        }
+        isOnline: boolean,
+        isStudTimesLoad: boolean //Stud - student
     }
 }
 
@@ -45,7 +61,7 @@ const initialState: InitialStateType = {
         },
         dateSelected: '25 августа, пт',
         timeSelected: null,
-        contacts: [],
+        contacts:[],
         freeTimes: {},
         faculty: ''
     },
@@ -57,7 +73,24 @@ const initialState: InitialStateType = {
         isEmployeeLogin: false,
         isCheckInPopup: false,
         isBusyWarning: false,
-        isAddEnroll: false
+        isShowNotify: {
+            isShow: false,
+            type: 'None'
+        },
+        isShowAddEnroll: {
+            isShow: false,
+            mode: 'none',
+            editData: {
+                email: '',
+                fullname: '',
+                gender: '',
+                citizenship: '',
+                educationLevel: '',
+                recordDatetime: ''
+            }
+        },
+        isOnline: true,
+        isStudTimesLoad: false
     }
 }
 
@@ -95,11 +128,17 @@ const globalSlice = createSlice({
             state.userData.email = action.payload.email
             state.userData.dormitory = action.payload.dormitory
             state.userData.contacts = action.payload.contacts
+            if (action.payload.faculty) state.userData.faculty = action.payload.faculty
             if (action.payload.takenTime) {
-                state.userData.freeTimes = createTimes(action.payload.takenTime)
+                //@ts-ignore
+                const normalizeArr = action.payload.takenTime.map(time => {
+                    return getTimeDate(time).datetime
+                })
+                state.userData.freeTimes = createTimes(normalizeArr)
             }
             else {
-                const date = action.payload.recordDatetime.slice(0, 2)
+                const normalizeDate = getTimeDate(action.payload.recordDatetime).datetime
+                const date = normalizeDate.slice(0, 2)
                 let shortWeekday = undefined
                 switch (date) {
                     case '25':
@@ -127,7 +166,9 @@ const globalSlice = createSlice({
                         break;
                 }
                 state.userData.dateSelected = `${date} августа, ${shortWeekday}`
-                state.userData.timeSelected = action.payload.recordDatetime.split(',')[1].slice(1, -3)
+                const timeCheck = normalizeDate.split(' ')[1]
+                if (/^\d{2}:\d{2}$/.test(timeCheck)) state.userData.timeSelected = timeCheck
+                else state.userData.timeSelected = normalizeDate.split(',')[1].slice(1, -3)
             }
         },
         showPopup(state, action: PayloadAction<{ event: React.MouseEvent, isShow: boolean, type: string }>) {
@@ -151,8 +192,6 @@ const globalSlice = createSlice({
                         state.serviceData.isBusyWarning = false
                     }
                     break;
-                default:
-                    break;
             }
         },
         cleanupUserStore(state) {
@@ -161,8 +200,48 @@ const globalSlice = createSlice({
         setFaculty(state, action) {
             state.userData.faculty = action.payload
         },
-        showAddEnroll(state, action: PayloadAction<boolean>) {
-            state.serviceData.isAddEnroll = action.payload
+        checkShowAddEnroll(state, action: PayloadAction<{
+            mode: 'create' | 'edit' | 'none'
+            editData?: SingleStudentType
+        }>) {
+            if (action.payload.mode === 'none') {
+                state.serviceData.isShowAddEnroll = {
+                    isShow: false,
+                    mode: 'none',
+                    editData: initialState.serviceData.isShowAddEnroll.editData
+                }
+            }
+            else if (action.payload.mode === 'create') {
+                state.serviceData.isShowAddEnroll = {
+                    isShow: true,
+                    mode: 'create',
+                    editData: initialState.serviceData.isShowAddEnroll.editData
+                }
+            }
+            else if (action.payload.mode === 'edit') {
+                state.serviceData.isShowAddEnroll = {
+                    isShow: true,
+                    mode: 'edit',
+                    editData: action.payload.editData
+                }
+            }
+        },
+        showNotify(state, action: PayloadAction<{
+            isShow: boolean,
+            type: 'CreateEnroll' | 'UpdateEnroll' | 'DeleteEnroll' | 'DeleteEnrollCompleted' |'TimeBusy'|'None'
+            event?: React.MouseEvent
+        }>) {
+            action.payload.event?.stopPropagation()
+            state.serviceData.isShowNotify = {
+                isShow: action.payload.isShow,
+                type: action.payload.type
+            }
+        },
+        changeOnline(state, action: PayloadAction<boolean>) {
+            state.serviceData.isOnline = action.payload
+        },
+        changeStudTimesLoad(state, action:PayloadAction<boolean>) {
+            state.serviceData.isStudTimesLoad = action.payload
         }
     }
 })
@@ -174,7 +253,10 @@ export const { hideCalendar, showCalendar, selectDate, selectTime, switchStep, s
     showPopup,
     cleanupUserStore,
     setFaculty,
-    showAddEnroll,
+    checkShowAddEnroll,
+    showNotify,
+    changeOnline,
+    changeStudTimesLoad
 } = globalSlice.actions
 
 export default globalSlice.reducer

@@ -20,8 +20,9 @@ export function createTimes(timesArr: Array<string>): freeTimesType {
         const fullFree: Array<timeType> = []
         for (let i = 9; i <= 17; i++) {
             for (let j = 0; j <= 45; j += 15) {
+                if (i === 13) continue
                 fullFree.push({
-                    time: `${i}:${j === 0 ? '00' : j}`,
+                    time: `${i === 9 ? '09' : i}:${j === 0 ? '00' : j}`,
                     isBusy: false
                 })
             }

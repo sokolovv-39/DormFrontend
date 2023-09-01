@@ -1,22 +1,37 @@
 @use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
 
 .GridContainer {
-    display: grid;
+    display: flex;
     gap: 5%;
-    grid-template-columns: 1fr 1fr;
     position: relative;
-
+    @media (max-device-width: vars.$transition) {
+        flex-direction: column-reverse;
+    }
     .EnrollBlock {
+        flex: 1;
+        @media (max-device-width: vars.$transition) {
+            margin: 0 24px;
+        }
         .Title {
-            @include mixins.fontNekst($fontSize: 3rem);
+            @include mixins.fontNekst($fontSize: 3rem,$fontWeight: 500);
+            margin-bottom: 24px;
+            @media (max-device-width:vars.$transition) {
+                font-size: 1.5rem;
+                margin-bottom: 16px;
+            }
         }
 
         .TimesBlock {
             display: grid;
-            grid-template-columns: repeat(6, minmax(72px, 100px));
-            grid-template-rows: repeat(7, 48px);
+            grid-template-columns: repeat(auto-fit,72px);
+            grid-template-rows: 48px;
             margin-top: 24px;
             gap: 16px;
+            @media (max-device-width:vars.$transition) {
+                justify-content: center;
+                margin-top: 16px;
+            }
 
             @mixin timeMixin() {
                 width: 72px;
@@ -48,12 +63,17 @@
                 background-color: white;
                 border: 1px solid #1D92F8;
             }
+            .FreeTime:hover {
+                background-color: #1D92F8;
+                color: white;
+                transition: all 150ms ease-out;
+            }
         }
     }
 
     .Warning {
         position: fixed;
-        top: 39%;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: white;
@@ -61,7 +81,7 @@
         padding: 39px 18px;
 
         h3 {
-            @include mixins.fontNekst($fontSize: 2.1875rem);
+            @include mixins.fontNekst($fontSize: 2.1875rem, $fontWeight: 500);
             text-align: center;
             margin: 0;
         }

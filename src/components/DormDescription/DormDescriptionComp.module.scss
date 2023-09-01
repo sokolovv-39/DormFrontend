@@ -1,0 +1,78 @@
+@use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
+
+.Wrapper {
+    display: flex;
+    flex-direction: column;
+    @include mixins.fontRaleway();
+    background-color: rgba(44, 62, 80, 0.04);
+    border-radius: 16px;
+    flex: 1;
+    @media (max-device-width: vars.$transition) {
+        margin-bottom: 32px;
+    }
+
+    .Content {
+        padding: 32px;
+
+        .Info {
+            display: flex;
+            flex-direction: column;
+
+            .NameAddress {
+                margin-bottom: 20px;
+                @media (max-device-width: vars.$transition) {
+                    margin-bottom: 16px;
+                }
+                display: flex;
+
+                div {
+                    margin-left: 20px;
+
+                    p {
+                        display: block;
+                    }
+
+                    strong {
+                        display: block;
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            .Contacts {
+                margin-bottom: 20px;
+                display: flex;
+                @media(max-device-width: vars.$transition) {
+                    margin-bottom: 16px;
+                }
+
+                .ContactsInfo {
+                    margin-left: 20px;
+                    display: flex;
+                    flex-direction: column;
+                    .Contact {
+                        margin-bottom: 4px;
+                        flex-direction: column;
+                        .Phone {
+                            font-weight: 600;
+                            text-decoration: none;
+                            color: #2C3E50;
+                        }
+                    }
+                    .Contact:last-of-type {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+
+        h3 {
+            @include mixins.fontNekst($fontSize: 1.5rem, $fontWeight:500);
+            margin-bottom: 20px;
+            @media (max-device-width: vars.$transition) {
+                margin-bottom: 16px;
+            }
+        }
+    }
+}

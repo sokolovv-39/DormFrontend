@@ -1,6 +1,7 @@
 @use './fonts/Nekst/stylesheet.css' as fontNekst;
 @use './fonts/Raleway/stylesheet.css' as fontRaleway;
 @use './mixins' as mixins;
+@use './variables' as vars;
 
 * {
     padding: 0;
@@ -8,22 +9,18 @@
     box-sizing: border-box;
 }
 
-#root {
-    max-width: 6000px;
-    margin: 0 auto;
-}
-
 p {
     margin: 0;
 }
 
 html {
-    font-size: 16px
-}
+    font-size: 16px;
 
-@media (max-width:760px) {
-    html {
-        font-size: 11px;
+    @media ((max-device-width: vars.$desktopMiddle) and (min-device-width: vars.$desktopMin)) {
+        font-size: 14px;
+    }
+    @media (max-device-width: vars.$smallMobile) {
+        font-size: 13px;
     }
 }
 
@@ -42,10 +39,26 @@ html {
     color: white
 }
 
+.DefaultButton_1:hover {
+    transition: all 150ms ease-out;
+    background-color: #4AA8F9;
+}
+
 .DefaultButton_2 {
     @include mixins.buttonStandard();
     @include mixins.fontRaleway($fontWeight: 600);
     background-color: white;
     color: #1D92F8;
     border: 1px solid #1D92F8
+}
+
+.DefaultButton_2:hover {
+    transition: all 150ms ease-out;
+    background-color: #1D92F8;
+    color: white
+}
+
+.AlertText {
+    margin-top: 8px;
+    color: #E95332;
 }

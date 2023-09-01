@@ -1,19 +1,19 @@
 {
-  "short_name": "ССО",
-  "name": "Студенческий совет общежитий НИТУ МИСИС",
+  "short_name": "Общежития НИТУ МИСИС",
+  "name": "Общежития НИТУ МИСИС",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "misis.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "misis192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "misis512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

@@ -1,23 +1,19 @@
 @use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
 
 @mixin AppStandard() {
     width: 100%;
     display: flex;
     position: relative;
     min-height: 100vh;
+    flex-direction: column;
 
-    @media (max-width: 912px) {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    @media (min-width: 913px) {
+    @media (min-device-width: vars.$desktopMin) {
         height: 100vh;
         background-image: url('./assets/LoginBackground.png');
         background-repeat: no-repeat;
         background-size: cover;
         background-position: 100% 32%;
-        flex-direction: column;
     }
 
     .FlexContainer {
@@ -25,12 +21,14 @@
         display: flex;
         justify-content: flex-end;
         width: 34%;
-        padding: 31px;
         background-color: white;
 
-        @media (max-width: 912px) {
-            height: auto;
+        @media (max-device-width: vars.$tabletMax) {
             width: 100%;
+            justify-content: center;
+            flex: 1;
+            border-radius: 0 0 16px 16px;
+            transform: translateY(12px);
         }
 
         .LoginWrapper {
@@ -38,27 +36,24 @@
             justify-content: space-between;
             display: flex;
             flex-direction: column;
-            width: min-content;
+            width: 360px;
+            padding: 32px;
+            box-sizing: content-box;
             position: relative;
             z-index: 1;
 
-            @media (max-width: 912px) {
+            @media (min-device-width: vars.$desktopMin) {
+                max-height: 100%;
+            }
+            @media (max-device-width: vars.$tabletMax) {
+                padding-top: 20px;
                 width: 100%;
-                border-radius: 0 0 2rem 2rem;
-                padding-top: 0;
-                transform: translateY(14px);
-                flex: 1;
             }
-
-            @media (min-width: 913px) {
-                height: 100%;
-            }
-
 
             .HeaderWrapper {
                 width: 62%;
 
-                @media (max-width:912px) {
+                @media (max-device-width:912px) {
                     width: 100%;
                 }
             }
@@ -66,17 +61,17 @@
     }
 
     .LoginPhoto {
-        @media (min-width: 913px) {
+        width: 100%;
+            height: auto;
+        @media (min-device-width: vars.$desktopMin) {
             display: none;
         }
-
-        @media (max-width: 912px) {}
     }
 
     .EmployeeLogin {
-        position: absolute;
+        position: fixed;
         left: 50%;
-        top: 46%;
+        top: 50%;
         transform: translate(-50%, -50%);
         background-color: white;
         box-sizing: content-box;
@@ -89,16 +84,32 @@
         z-index: 2;
         justify-content: center;
         align-items: center;
-
-        @media (max-width: 912px) {
-            width: 33%;
-            height: 50%;
-            justify-content: space-evenly;
+        @media (max-device-height: 335px) {
+            height: min-content;
+            width: min-content;
+        }
+        @media ((max-device-height: 483px) and (min-device-height: 336px)) {
+            height: 278px;
+            width: min-content;
+        }
+        @media (max-device-width: vars.$middleMobile) and (min-device-width: vars.$smallMobile) {
+            height: 283px;
+            width: 243px;
+        }
+        @media (max-device-width: vars.$smallMobile) {
+            width: 181px;
+            height: 283px;
         }
 
         .EmployeeWrapper {
             display: flex;
             flex-direction: column;
+            @media (max-device-height: 335px) {
+                align-items: center;
+            }
+            @media (max-device-width: vars.$middleMobile) {
+                width: 100%;
+            }
 
             form {
                 display: flex;
@@ -111,12 +122,18 @@
                 }
 
                 .LoginInput {
-                    margin-bottom: 16px
+                    margin-bottom: 13px;
+                    @media (max-device-height: 335px) {
+                        margin-bottom: 10px;
+                    }
                 }
 
                 label {
                     @include mixins.fontRaleway();
-                    margin-bottom: 12px
+                    margin-bottom: 12px;
+                    @media (max-device-height: 335px) {
+                        margin-bottom: 8px;
+                    }
                 }
 
                 input {
@@ -124,13 +141,34 @@
                     border: 1px solid rgba(44, 62, 80, 0.24);
                     height: 48px;
                     width: 360px;
-                    border-radius: 16px;
+                    border-radius: 8px;
                     padding-left: 16px;
+                    @media (max-device-height: 335px) {
+                        width: 100%;
+                        height: 28px;
+                    }
+                    @media (max-device-width: vars.$middleMobile) {
+                        width: 100%;
+                    }
+                    @media (max-device-width: vars.$smallMobile) {
+                        height: 38px;
+                    }
                 }
 
                 button {
                     margin: 0;
-                    margin-top: 16px
+                    margin-top: 16px;
+                    @media (max-device-height: 335px) {
+                        height: 28px;
+                        margin-top: 14px;
+                    }
+                    @media (max-device-width: vars.$middleMobile) {
+                        width: 100%;
+                        margin-top: 13px;
+                    }
+                    @media (max-device-width: vars.$smallMobile) {
+                        height: 38px;
+                    }
                 }
 
                 .WrongLogin {
@@ -140,11 +178,18 @@
             }
 
             h1 {
-                @include mixins.fontNekst();
+                @include mixins.fontNekst($fontWeight: 500);
                 width: 360px;
-
-                @media (max-width: 1172px) {
-                    font-size: 2.25rem;
+                @media (max-device-height: 335px) {
+                    margin-bottom: 8px;
+                }
+                @media (max-device-height: 483px) {
+                    font-size: 21px;
+                }
+                @media (max-device-width: vars.$middleMobile) {
+                    width: auto;
+                    font-size: 21px;
+                    margin-bottom: 17px;
                 }
             }
 
@@ -154,6 +199,21 @@
                 width: 32px;
                 height: 32px;
                 right: 3%;
+                @media (max-device-height: 335px) {
+            height: 23px;
+            width: 23px
+        }
+        @media ((min-device-height: 336px) and (max-device-height: 483px)) {
+            font-size: 21px;
+            height: 25px;
+            width: 25px
+        }
+                @media (max-device-width: vars.$middleMobile) {
+                    top: 8px;
+                    right: 8px;
+                    height: 20px;
+                    width: 20px;
+                }
             }
 
             .Cross:hover {

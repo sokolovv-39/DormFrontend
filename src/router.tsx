@@ -5,6 +5,7 @@ import EnrollmentPage from "./pages/EnrollmentPage/EnrollmentPage";
 import ConfirmPage from "./pages/ConfirmPage/ConfirmPage";
 import FinalPage from "./pages/FinalPage/FinalPage";
 import AdminPage from "./pages/AdminPage/AdminPage";
+import WrapperComp from "./components/WrapperComp/WrapperComp";
 
 export const router = createBrowserRouter([
     {
@@ -21,10 +22,10 @@ export const router = createBrowserRouter([
     },
     {
         path: '/registered',
-        element: <PageWrapper><FinalPage /></PageWrapper>
+        element: <WrapperComp><PageWrapper><FinalPage /></PageWrapper></WrapperComp>
     },
     {
         path: '/admin',
-        element: <PageWrapper><AdminPage /></PageWrapper>
+        element: <WrapperComp><PageWrapper><AdminPage /></PageWrapper></WrapperComp>
     }
 ])

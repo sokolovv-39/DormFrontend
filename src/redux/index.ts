@@ -10,7 +10,7 @@ const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: {
-                ignoredActions: ['globalSlice/hideCalendar', 'globalSlice/showCalendar', 'globalSlice/showPopup']
+                ignoredActions: ['globalSlice/hideCalendar', 'globalSlice/showCalendar', 'globalSlice/showPopup', 'globalSlice/showNotify']
             }
         })
 })

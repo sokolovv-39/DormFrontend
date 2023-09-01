@@ -1,18 +1,26 @@
-@use '../../styles/mixins';
+@use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
 
-@mixin wrapperStandard() {
-    width: 100%;
+.Wrapper {
     min-height: 100vh;
-    padding: 1% 1% 0 1%;
+    padding: 18px 34px 0 34px;
     display: flex;
     flex-direction: column;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    position: absolute;
+    position: relative;
+    margin: 0 auto;
+    max-width: 1240px;
+    @media (max-device-width: vars.$transition) {
+        padding: 0;
+    }
 
-    main {
+    main { 
         flex: 1;
+        @media (max-device-width: vars.$transition) {
+            margin-bottom: 50px;
+        }
     }
 
     .NewEnroll {
@@ -155,42 +163,9 @@
     }
 }
 
-.Wrapper,
-.WrapperOverlay {
-    @include wrapperStandard()
-}
-
-.WrapperOverlay::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(44, 62, 80, 0.5);
-    z-index: 1;
-}
-
-.INMIN {
-    background-image: url('./assets/INMIN.webp');
-}
-
-.EKOKEK {
-    background-image: url('./assets/EKOKEK.webp');
-}
-
-.EUPP {
-    background-image: url('./assets/EUPP.webp');
-}
-
-.IBO {
-    background-image: url('./assets/IBO.webp')
-}
-
-.ITKN {
-    background-image: url('./assets/ITKN.webp');
-}
-
-.GORNIY {
-    background-image: url('./assets/GORNY.webp');
+.AdaptiveAdmin {
+    width: 100%;
+    @media (max-device-width: 950px) {
+        width: 950px;
+    }
 }

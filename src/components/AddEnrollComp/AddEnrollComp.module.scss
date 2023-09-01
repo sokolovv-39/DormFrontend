@@ -1,0 +1,165 @@
+@use '../../styles/mixins' as mixins;
+$transition: 700px;
+
+.NewEnroll {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 569px;
+    overflow-y: scroll;
+    background-color: white;
+    z-index: 2;
+    padding: 40px;
+    border-radius: 16px;
+    @media (max-device-width: $transition) {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        border-radius: 0;
+        max-height: none;
+    }
+
+    .CurrentEnrollTime {
+        margin-bottom: 8px;
+        @include mixins.fontRaleway($fontWeight: 600)
+    }
+
+    .TimesContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,72px);
+        grid-template-rows: 48px;
+        justify-items: center;
+        gap: 8px;
+        width: 100%;
+        @media (max-device-width: $transition) {
+            justify-content: center;
+        }
+
+        .TimeBlock {
+            color: #1D92F8;
+            border: 1px solid #1D92F8;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 48px;
+            cursor: pointer;
+        }
+        .TimeBlock:hover {
+            color: white;
+            background-color: #1D92F8;
+            transition: all 150ms ease-out;
+        }
+
+        .SelectedTime {
+            background-color: #1D92F8;
+            color: white;
+            font-weight: 600;
+        }
+    }
+
+    .FullnameText {
+        width: 100%;
+        margin-bottom: 16px;
+
+        input {
+            width: 100%;
+            height: 48px;
+        }
+    }
+
+    .StudInfo {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        column-gap: 40px;
+        row-gap: 16px;
+        margin-bottom: 16px;
+        @media (max-device-width: $transition) {
+            grid-template-columns: auto;
+            grid-template-rows: auto;
+        }
+        .InfoBlocks {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+    
+            p {
+                margin-top: 8px;
+                color: #E95332;
+            }
+    
+            .FullWidthInput {
+                width: 260px;
+                @media (max-device-width: $transition) {
+                    width: 100%;
+                }
+            }
+    
+            .InfoInput {
+                width: 260px;
+                height: 48px;
+                @media (max-device-width: $transition){
+                    width: 100%;
+                }
+            }
+    
+            .RadioButtons {
+                display: flex;
+                align-items: center;
+                flex: 1;
+    
+                label {
+                    margin: 0;
+                    margin-right: 24px;
+                    display: flex;
+                    align-items: center;
+                }
+    
+                input {
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+
+    label,
+    input,
+    select {
+        @include mixins.fontRaleway()
+    }
+
+    input,
+    select {
+        border: 1px solid #2C3E501F;
+        border-radius: 8px;
+        padding: 0 16px;
+        height: 48px;
+    }
+
+    label {
+        margin-bottom: 12px;
+    }
+
+    .Cross {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        cursor: pointer;
+    }
+
+    h3 {
+        @include mixins.fontNekst($fontSize: 1.5rem, $fontWeight: 500);
+        margin-bottom: 32px;
+    }
+
+    button {
+        width: 222px;
+        margin: 0;
+        margin-top: 32px;
+    }
+}

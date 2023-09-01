@@ -1,0 +1,47 @@
+@use '../../styles/mixins' as mixins;
+
+.Wrapper {
+    @include mixins.fontNekst($fontSize: 2.1875rem);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: white;
+    padding: 39px 18px;
+
+    .Buttons {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        margin-top: 15px;
+
+        .YesBtn {
+            width: min-content;
+            height: min-content;
+            margin: 0;
+            padding: 6px 24px;
+            background-color: #E95332;
+        }
+        .YesBtn:hover{
+            background-color: #ee3b13;
+        }
+
+        .NoBtn {
+            width: min-content;
+            height: min-content;
+            margin: 0;
+            padding: 6px 24px;
+        }
+    }
+
+    h3 {
+        text-align: center;
+        margin: 0;
+        font-weight: 500;
+    }
+}

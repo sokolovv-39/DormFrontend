@@ -11,6 +11,8 @@ export default function ProfileBlockComp() {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
+    const userName = /admin/.test(window.location.href)?<p>{adminLogin}</p>:<p>{email?.slice(0,8)}<span className={classes.EmailPostfix}>{email?.slice(8)}</span></p>
+
     function exit(e: React.MouseEvent) {
         e.preventDefault()
         dispatch(cleanupUserStore())
@@ -22,7 +24,7 @@ export default function ProfileBlockComp() {
         <div className={classes.Wrapper}>
             <img src={UserIconSVG} alt="user_icon" />
             <div className={classes.EmailExit}>
-                <p>{/admin/.test(window.location.href) ? `${adminLogin}` : `${email}`}</p>
+                {userName}
                 <a onClick={(e) => exit(e)}>ВЫЙТИ</a>
             </div>
         </div>

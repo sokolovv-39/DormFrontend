@@ -1,4 +1,5 @@
 export function requestErrorHandler(err: any) {
+     console.log('Error object', err)
     if (err.response) {
         console.log('Response Error', err.response)
     }

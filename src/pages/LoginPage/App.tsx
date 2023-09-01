@@ -3,15 +3,15 @@ import HeaderLogoComp from '../../components/HeaderLogoComp/HeaderLogoComp';
 import LoginComp from '../../components/LoginComp/LoginComp';
 import TechSupportComp from '../../components/TechSupportComp/TechSupportComp';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { hideEmployeeLogin, showEmployeeLogin } from '../../redux/globalSlice';
+import { changeOnline, hideEmployeeLogin, showEmployeeLogin } from '../../redux/globalSlice';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MobileBackground from './assets/MobileBackground.png'
-import axios from 'axios';
 import { setAdminData } from '../../redux/adminSlice';
 import { requestErrorHandler } from '../../utils/requestErrorsHandler';
 import { ReactComponent as WhiteSpinner } from '../../assets/white_spinner.svg'
 import { axiosRequest } from '../../configs/axiosConfig';
+import NoOnlineComp from '../../components/NoOnlineComp/NoOnlineComp';
 
 function App() {
   const isEmployeeLogin = useAppSelector(state => state.globalSlice.serviceData.isEmployeeLogin)
@@ -21,8 +21,10 @@ function App() {
   const navigate = useNavigate()
   const [isWrongLogin, setIsWrongLogin] = useState<boolean>(false)
   const [isLoadingEmp, setIsLoadingEmp] = useState<boolean>(false)
+const isOnline = useAppSelector(state=>state.globalSlice.serviceData.isOnline)
 
-  function employeeLogin(e: React.FormEvent<HTMLFormElement>) {
+  async function employeeLogin(e: React.FormEvent<HTMLFormElement>) {
+    dispatch(changeOnline(true))
     setIsLoadingEmp(true)
     setIsWrongLogin(false)
     e.preventDefault()
@@ -30,11 +32,9 @@ function App() {
     else {
       const formData = new FormData(e.currentTarget)
       axiosRequest.post('/auth/login-admin', {
-        email: formData.get('employee_login'),
+        login: formData.get('employee_login'),
         password: formData.get('employee_password')
       }).then(({ data: tokenData }) => {
-        console.log('login-admin succeded', tokenData)
-        console.log('token', tokenData.access_token)
         axiosRequest.get(`/admin/get-users?login=${formData.get('employee_login')}`, {
           headers: {
             'Authorization': `Bearer ${tokenData.access_token}`
@@ -48,12 +48,12 @@ function App() {
           }))
           navigate('/admin')
         }).catch(err => {
+          if (err.code==='ERR_NETWORK') dispatch(changeOnline(false))
           setIsLoadingEmp(false)
-          console.log('error in get-users')
-          console.log(err.request)
           requestErrorHandler(err)
         })
       }).catch(err => {
+        if (err.code==='ERR_NETWORK') dispatch(changeOnline(false))
         setIsLoadingEmp(false)
         requestErrorHandler(err)
         if (err.response) setIsWrongLogin(true)
@@ -63,6 +63,7 @@ function App() {
 
   return (
     <div className={isEmployeeLogin ? `${classes.AppOverlay}` : `${classes.App}`}>
+      {!isOnline && <NoOnlineComp/>}
       <div className={classes.FlexContainer}>
         <div className={classes.LoginWrapper}>
           <div className={classes.HeaderWrapper}>

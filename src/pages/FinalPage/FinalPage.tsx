@@ -6,15 +6,18 @@ import LocationSVG from './assets/Location.svg'
 import ClockSVG from './assets/Clock.svg'
 import DocsSVG from './assets/Docs.svg'
 import PhoneSVG from './assets/Phone.svg'
-import { useRef } from 'react'
+import { getDormFullname } from '../../utils/getFullDorm'
+import TechSupportComp from '../../components/TechSupportComp/TechSupportComp'
 
 export default function FinalPage() {
     const dateSelected = useAppSelector(state => state.globalSlice.userData.dateSelected)
     const timeSelected = useAppSelector(state => state.globalSlice.userData.timeSelected)
+    const contacts = useAppSelector(state=>state.globalSlice.userData.contacts)
+    const dormitory = useAppSelector(state=>state.globalSlice.userData.dormitory)
 
     return (
         <div className={classes.Wrapper}>
-            <h1>Поздравляем с завершением регистрации на заселениев общежитие!</h1>
+            <h1>Поздравляем с завершением регистрации на заселение в общежитие!</h1>
             <div className={classes.GridContainer}>
                 <div className={classes.GridEl}>
                     <img src={CalendarSVG} />
@@ -23,11 +26,11 @@ export default function FinalPage() {
                 <div className={classes.GridEl}>
                     <img src={PhoneSVG} />
                     <div>
-                        <a href="tel:+7 950 654 20 20" style={{
+                        <a href={`tel:${contacts[0]?.phone}`} style={{
                             textDecoration: 'none',
                             color: '#000000'
-                        }}>+7 950 654 20 20</a>
-                        <p className={classes.Notes}>Администратор М-3, Айвазова Инга Рубеновна</p>
+                        }}>{contacts[0]?.phone}</a>
+                        <p className={classes.Notes}>{`${contacts[0]?.position}, ${contacts[0]?.fullname}`}</p>
                     </div>
                 </div>
                 <div className={classes.GridEl}>
@@ -41,15 +44,17 @@ export default function FinalPage() {
                 <div className={classes.GridEl}>
                     <img src={LocationSVG} style={{ alignSelf: 'flex-start' }} />
                     <div>
-                        <p>Студгородок &#171;Металлург&#187; &#40;Корпус 3&#41;</p>
-                        <p className={classes.Notes}>Москва, улица Профсоюзная, д. 83, корпуса 1,2,3</p>
-                        <p className={classes.Notes}>&#40;станция метро Беляево&#41;</p>
+                        <p>{getDormFullname(dormitory.name as string,true)}</p>
+                        <p className={`${classes.Notes} ${classes.DormAddress}`}>{dormitory.address}</p>
                     </div>
                 </div>
                 <div className={`${classes.LastEl} ${classes.Notes}`}>
                     <p>На вашу корпоративную почту придет письмо с данной информацией</p>
                     <p>Подробнее о заселении в общежитие можете узнать на <a href="https://misis.ru/applicants/accommodation/" target='_blank'>сайте</a></p>
                 </div>
+            </div>
+            <div className={classes.SupportWrapper}>
+            <TechSupportComp/>
             </div>
         </div>
     )

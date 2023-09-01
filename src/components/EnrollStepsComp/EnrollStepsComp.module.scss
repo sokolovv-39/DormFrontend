@@ -1,47 +1,55 @@
 @use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
 
 .Wrapper {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1%;
-    @include mixins.fontRaleway();
-
+    margin-bottom: 40px;
+    @media (max-device-width: vars.$transition){
+        margin: 0 24px 24px 24px;
+    }
     .Step {
-        column-gap: 3%;
         display: flex;
         align-items: center;
-
-        h6 {
-            margin: 0;
-            font-size: 13px;
-            white-space: nowrap;
+        h6{
+            @include mixins.fontRaleway();
+            margin: 0 0 0 16px;
+            @media (max-device-width:866px) {
+                display: none;
+            }
         }
     }
-
-    .Step2 {
-        padding-right: 11%;
+    @mixin step3 {
+        padding-left: 173px;
         position: relative;
-    }
-
-    .Step2::after {
-        content: "";
+        &::after {
+            content: "";
         position: absolute;
         height: 1px;
-        width: calc(100% - 148px);
+        left: 0;
+        right: 56px;
         background-color: #2C3E501F;
-        right: 0;
     }
-
-    .Line1,
-    .Line2 {
+    @media (max-device-width:866px) {
+        padding-left: 16px;
+    }    
+    }
+    .Step3_Gray{
+        @include step3()
+    }
+    .Step3_Black{
+        @include step3()
+    }
+    .Step3_Black::after{
+        background-color: #000000;
+    }
+    .Line{
         height: 1px;
-        background-color: #2C3E501F;
         flex: 1;
-        margin: 0 7px;
+        align-self: center;
+        margin: 0 16px;
     }
-
-    .Line2 {
-        margin-left: 0;
+    .Line2{
+        margin-right: 0;
     }
 }

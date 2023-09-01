@@ -1,7 +1,21 @@
+@use '../../styles/variables' as vars;
+
 .Wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin-bottom: 1%;
+    margin-bottom: 40px;
     justify-items: center;
-    align-items: flex-start
+    align-items: flex-start;
+    @media (max-device-width: vars.$transition) {
+        margin: 8px 24px 24px 24px
+    }
+    .IsShow {
+        @media (max-device-width: 866px) {
+            display: none;
+        }
+    };
+    .AdaptiveProfile {
+        justify-self: flex-end;
+        grid-column: 3;
+    }
 }

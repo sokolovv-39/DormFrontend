@@ -1,27 +1,43 @@
 @use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
 
 .Wrapper {
     width: 100%;
 
     h1 {
-        @include mixins.fontNekst();
-
+        @include mixins.fontNekst($fontWeight: 500);
+margin-bottom: 32px;
         span {
             color: #1D92F8;
+        }
+        @media (max-device-width: vars.$transition) {
+            margin: 0 24px 24px 24px;
+            font-size: 1.5rem;
         }
     }
 
     .Info {
         display: flex;
         gap: 3%;
-
+@media (max-device-width: vars.$tabletMax) {
+    flex-direction: column;
+}
         .LeftBlock {
             width: 55%;
-
-            h3 {
-                @include mixins.fontNekst($fontSize: 1.5rem, $fontWeight: 400)
+            @media (max-device-width: vars.$transition) {
+                padding: 0 24px;
+                width: 100%;
             }
-
+            h3 {
+                @include mixins.fontNekst($fontSize: 1.5rem, $fontWeight: 500);
+                margin-bottom: 16px;
+                @media (max-device-width:vars.$transition) {
+                    font-size: 1rem;
+                }
+            }
+ul {
+    margin-bottom: 16px;
+}
             ul,
             p {
                 @include mixins.fontRaleway()
@@ -45,7 +61,12 @@
             border-radius: 16px;
             background-color: #2C3E500A;
             padding: 32px;
-
+            @media (max-device-width: vars.$transition) {
+                width: 100%;
+                height: auto;
+                margin-top: 24px;
+                padding: 24px;
+            }
             strong {
                 display: block;
                 padding-bottom: 16px;

@@ -1,27 +1,54 @@
 @use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
 
 .Wrapper {
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    padding: 18px 34px 45px 34px;
+    @media (max-device-width:vars.$middleMobile) {
+        padding-bottom: 0;
+    }
+.SupportWrapper {
+    align-self: flex-start;
+    @media (min-device-width: vars.$middleMobile) {
+        display: none;
+    }
+}
     h1 {
-        @include mixins.fontNekst()
+        @include mixins.fontNekst($fontSize: 72px, $color: #000000, $fontWeight: 500);
+        margin-bottom: 32px;
+        @media ((min-device-width: vars.$middleMobile) and (max-device-width: 1036px)) {
+            font-size: 45px;
+        }
+        @media (max-device-width: vars.$middleMobile) {
+            font-size: 1.5rem;
+        }
+        
     }
 
     .GridContainer {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr 2fr 1fr;
-        width: 64%;
-        align-items: center;
+        grid-auto-rows: min-content;
+        @media (max-device-width: vars.$middleMobile) {
+            display: flex;
+flex-direction: column;
+width: 100%;
+height: min-content;
+align-items: flex-start;
+        }
 
         .GridEl {
             display: flex;
             align-items: center;
-            gap: 1.5%;
-            @include mixins.fontNekst($fontSize: 1.5rem, $color: '#000000')
+            gap: 16px;
+            @include mixins.fontNekst($fontSize: 24px, $color: #000000, $fontWeight: 500);
+            margin-bottom: 23px;
+            @media (max-device-width: vars.$transition) {
+                font-size: 16px;
+                margin-bottom: 16px;
+            }
         }
 
         .LastEl {
@@ -29,15 +56,23 @@
             grid-row: 4;
             justify-self: flex-start;
             align-self: flex-start;
+            margin-top: 9px;
+            margin-bottom: 32px;
 
             a {
                 font-weight: 700;
                 color: #000000
             }
+            @media (max-device-width: vars.$transition){
+                margin-top: 8px;
+            }
+        }
+        .DormAddress{
+            margin-top: 4px;
         }
 
         .Notes {
-            @include mixins.fontRaleway()
+            @include mixins.fontRaleway($fontColor: #000000)
         }
     }
 }

@@ -1,7 +1,10 @@
 @use '../../styles/mixins' as mixins;
+@use '../../styles/variables' as vars;
 
 .Wrapper {
+    padding: 0 24px;
     h1 {
+@include mixins.fontNekst($fontWeight: 500);
         margin-bottom: 32px;
     }
 
@@ -17,7 +20,11 @@
                 height: 48px;
                 border-radius: 8px;
                 border: 1px solid #2C3E501F;
-                padding: 12px 16px
+                padding: 12px 16px;
+                @include mixins.fontRaleway($fontWeight: 600);
+                @media (max-device-width: vars.$transition) {
+                    margin-left: 24px;
+                }
             }
         }
 
@@ -27,9 +34,16 @@
             align-items: center;
             justify-content: center;
             margin: 0;
-
+svg{
+    stroke: #1D92F8;
+}
             p {
                 margin-left: 8px;
+            }
+        }
+        .AddStudent:hover {
+            svg {
+                stroke: white;
             }
         }
     }

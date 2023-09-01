@@ -52,6 +52,7 @@ export default function CalendarComp() {
         else if (index <= 31) {
             dispatch(showPopup({ event: e, isShow: true, type: 'checkInPopup' }))
         }
+        else if (index>=39) return
         else {
             dispatch(selectTime(null))
             if (activeDate.current) activeDate.current.classList.remove(`${classes.Selected}`)
@@ -96,12 +97,17 @@ export default function CalendarComp() {
             </div>
             {
                 isShowCalendar && <div className={`${classes.FullCalendar}`} onClick={(e) => dispatch(showCalendar({ event: e }))}>
-                    <h6 className={classes.Month}>АВГУСТ 2023</h6>
+                    <h6 className={classes.Month}>АВГУСТ <span>2023</span></h6>
                     <div className={classes.Calendar}>
                         {calendarDates.map((el, index) => {
                             return (
                                 <div key={index} className={index <= 7 ? classes.Weekdays : (index <= 31 ? unavaliableNumberClass : (index === parseInt(selectedDate) + 7 ? selectedNumberClass : numberClass))}
-                                    onClick={(e) => checkDate(e, index)} ref={index === 32 ? activeDate : null}>{el}</div>
+                                    onClick={(e) => checkDate(e, index)} ref={index === 32 ? activeDate : null}
+                                    style={{
+                                        cursor:index>=39?'auto':''
+                                    }}>
+                                        {el}
+                                </div>
                             )
                         })}
                     </div>
