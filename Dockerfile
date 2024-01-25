@@ -2,7 +2,7 @@ FROM node:lts-alpine AS production
 ENV NODE_ENV production
 WORKDIR /app
 COPY ./package.json ./
-RUN npm install
+RUN npm install --verbose
 COPY . .
 RUN npm run build
 
